@@ -1,9 +1,9 @@
 <template>
     <div class="infoall">
         <div class="tobag"><router-link to="/UserBag">背包</router-link></div>
-        <div><router-link to="/tujian">图鉴</router-link></div>
+        <div><router-link to="/collection">图鉴</router-link></div>
         <div>签到</div>
-
+        <div>成就</div>
         <div @click="reset">重置</div>
         <div><router-link to="/panel">后台</router-link></div>
         

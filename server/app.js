@@ -26,6 +26,7 @@ app.use("/baginfo", require("./routers/BagRouter.js"))
 app.use("/sow", require("./routers/SowRouter.js"))
 app.use("/feed", require("./routers/FeedRouter.js"))
 app.use("/reap", require("./routers/ReapRouter.js"))
+app.use("/collect",require("./routers/CollectionRouter.js"))
 
 
 app.all("*",  async(req, res) =>{

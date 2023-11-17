@@ -199,8 +199,6 @@ const getPropBag = async() =>{
         let arr = Object.values(getid[i])
         let push = arr[0]
         searchid.push(push)
-        console.log("id");
-        console.log(searchid);
     }
     // 通过道具格子里记录的道具id，查询道具信息，获取展示图
     let ppshowdata = []
@@ -260,23 +258,40 @@ const reap = async(state,zwid,potid)=>{
     }else{
         // 查询是否已经存在该植物id的产品格
         let res = await axios.post("/reap/search",{id:zwid})
-        console.log(res);
         if(res.data.rows.length==1){
             // 存在，获取原本数量
-            console.log(res);
             let backdata = res.data.rows[0].goods_qty
             let newnum = backdata + 1
-            console.log(newnum);
             let updatenum = await axios.post("/reap/update",{id:zwid,num:newnum})
+
+            updatectnum(zwid)
+
         }else{
             // 新增一个产品格子存放
             let add = await axios.post("/reap/add",{id:zwid})
             console.log(zwid);
+            // 改变植物信息中的图鉴的获取的状态
+            let statechange = await axios.post("/collect/have",{id:zwid})
+
+            addctinfo(zwid)
         }
         wipe(potid)
     }
 }
 
+
+// 植物的历史收获数量更新
+const updatectnum = async(id)=>{
+    let res = await axios.post("/collect/search",{id:id})
+    let num = res.data.rows[0].ct_qty
+    let newnum = num + 1
+    let updatenum = await axios.post("/collect/update",{id:id,num:newnum})
+}
+
+// 添加历史信息
+const addctinfo = async(id)=>{
+    let add = await axios.post("/collect/add",{id:id})
+}
 
 </script>
 

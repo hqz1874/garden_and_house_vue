@@ -63,4 +63,24 @@ router.post("/updatepotsc", async (req, res) => {
     }
 })
 
+
+// 查询所有植物的信息
+router.get("/allzw", async(req, res) =>{
+
+  
+
+    const search_sql = "SELECT * FROM `zwinfo` "
+    let {err, rows} = await db.async.all(search_sql,[])
+    if(err == null){
+        res.send({
+            id:genid.NextId(),
+            rows
+        })
+    }else{
+        res.send({
+            msg:"妈的的失败了"
+        })
+    }
+})
+
 module.exports = router
